@@ -12,6 +12,8 @@ services:
       command: /kafka/bin/kafka-server-start.sh /config/broker1
       volumes:
         - ./data/broker1:/data
+      ports:
+        - 9092:9092
   broker2:
       depends_on:
         - zookeeper
@@ -28,6 +30,16 @@ services:
       command: /kafka/bin/kafka-server-start.sh /config/broker3
       volumes:
         - ./data/broker3:/data
+
+  broker4:
+      depends_on:
+        - zookeeper
+      build: 
+        context: .
+      command: /kafka/bin/kafka-server-start.sh /config/broker4
+      volumes:
+        - ./data/broker4:/data
+
   consumer:
       container_name: consumer
       build: 
