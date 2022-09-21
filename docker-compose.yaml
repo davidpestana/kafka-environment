@@ -10,18 +10,24 @@ services:
       build: 
         context: .
       command: /kafka/bin/kafka-server-start.sh /config/broker1
+      volumes:
+        - ./data/broker1:/data
   broker2:
       depends_on:
         - zookeeper
       build: 
         context: .
       command: /kafka/bin/kafka-server-start.sh /config/broker2
+      volumes:
+        - ./data/broker2:/data
   broker3:
       depends_on:
         - zookeeper
       build: 
         context: .
       command: /kafka/bin/kafka-server-start.sh /config/broker3
+      volumes:
+        - ./data/broker3:/data
   consumer:
       container_name: consumer
       build: 
