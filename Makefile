@@ -4,6 +4,14 @@ create-topic:
 	read -p "Enter Topic Replication factor: " replication; \
 	docker exec operations bash -c \
 				"./bin/kafka-topics.sh --bootstrap-server broker1:9092 --create --partitions $$partitions --replication-factor $$replication --topic $$topic"
+
+describe-topic:
+	@read -p "Enter Topic Name: " topic; \
+	docker exec -it operations bash -c "./bin/kafka-topics.sh --bootstrap-server broker1:9092 --topic $$topic --describe"
+
+describe-groups:
+	docker exec -it operations bash -c "./bin/kafka-consumer-groups.sh --bootstrap-server broker1:9092 --describe --all-groups"
+
 delete-topic:
 	@read -p "Enter Topic Name: " topic; \
 	docker exec -it operations bash -c "./bin/kafka-topics.sh --bootstrap-server broker1:9092 --topic $$topic --delete"
@@ -14,7 +22,9 @@ producer:
 
 consumer:
 	@read -p "Enter Topic Name: " topic; \
-	docker exec -it producer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server broker1:9092 --topic $$topic "
+	docker exec -it producer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server broker1:9092 --topic $$topic --from-beginning"
+
+
 
 operations:
 	docker exec -it operations bash
