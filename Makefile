@@ -7,3 +7,6 @@ create-topic:
 delete-topic:
 	@read -p "Enter Topic Name: " topic; \
 	docker exec -it operations bash -c "./bin/kafka-topics.sh --bootstrap-server broker1:9092 --topic $$topic --delete"
+
+operations:
+	docker exec -it operations bash
