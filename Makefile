@@ -12,5 +12,9 @@ producer:
 	@read -p "Enter Topic Name: " topic; \
 	docker exec -it producer bash -c "./bin/kafka-console-producer.sh --bootstrap-server broker1:9092 --topic $$topic "
 
+consumer:
+	@read -p "Enter Topic Name: " topic; \
+	docker exec -it producer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server broker1:9092 --topic $$topic "
+
 operations:
 	docker exec -it operations bash
