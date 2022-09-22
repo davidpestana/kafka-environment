@@ -31,8 +31,7 @@ broker.id=4
 #     listeners = listener_name://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://broker4:9092
-
+listeners=PLAINTEXT://localhost:9095,PLAINTEXT_INTERNAL://broker4:29092
 # Listener name, hostname and port the broker will advertise to clients.
 # If not set, it uses the value for "listeners".
 #advertised.listeners=PLAINTEXT://your.host.name:9092
