@@ -5,6 +5,11 @@ start:
 	docker compose up -d
 	docker compose logs -f 
 
+
+ cleanup:
+	docker compose down --remove-orphans
+	docker rm -f $(docker ps -aq) 
+
 create-topic:
 	@read -p "Enter Topic Name: " topic; \
 	read -p "Enter Topic Partitions number: " partitions; \
@@ -16,6 +21,11 @@ describe-topic:
 	@read -p "Enter Topic Name: " topic; \
 	docker compose -f tools.yaml run --rm tools bash -c \
 			"./bin/kafka-topics.sh --bootstrap-server $(bootstrap-server) --topic $$topic --describe"
+
+
+list-topic:
+	docker compose -f tools.yaml run --rm tools bash -c \
+			"./bin/kafka-topics.sh --bootstrap-server $(bootstrap-server) --list"
 
 describe-groups:
 	docker compose -f tools.yaml run --rm tools bash -c \
