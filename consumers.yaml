@@ -1,0 +1,52 @@
+version: '2'
+services:
+  service-consumer0:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/consumer:/app
+    working_dir: /app
+
+  service-consumer1:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/consumer:/app
+    working_dir: /app
+
+
+  # service-producer1:
+  #   image: node
+  #   restart: always
+  #   command: 
+  #     - npm
+  #     - start
+  #   volumes:
+  #     - ./src/producer:/app
+  #   working_dir: /app    
+
+  # service-producer3:
+  #   image: node
+  #   restart: always
+  #   command: 
+  #     - npm
+  #     - start
+  #   volumes:
+  #     - ./src/producer:/app
+  #   working_dir: /app  
+
+  # service-producer4:
+  #   image: node
+  #   restart: always
+  #   command: 
+  #     - npm
+  #     - start
+  #   volumes:
+  #     - ./src/producer:/app
+  #   working_dir: /app  

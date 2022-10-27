@@ -1,0 +1,41 @@
+version: '2'
+services:
+  service-producer0:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/producer:/app
+    working_dir: /app
+
+  service-producer1:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/producer:/app
+    working_dir: /app    
+
+  service-producer3:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/producer:/app
+    working_dir: /app  
+
+  service-producer4:
+    image: node
+    restart: always
+    command: 
+      - npm
+      - start
+    volumes:
+      - ./src/producer:/app
+    working_dir: /app  

@@ -5,6 +5,8 @@ services:
     build: 
       context: .
     command: /kafka/bin/zookeeper-server-start.sh /config/zookeeper
+    volumes:
+      - ./config:/config
   broker1: 
       container_name: broker1
       depends_on:
@@ -45,4 +47,3 @@ services:
       build: 
         context: .
       command: tail -f /dev/null
-  

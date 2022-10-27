@@ -14,6 +14,10 @@ describe-topic:
 describe-groups:
 	docker exec -it operations bash -c "./bin/kafka-consumer-groups.sh --bootstrap-server $(bootstrap-server) --describe --all-groups"
 
+describe-group:
+	@read -p "Enter Group Name: " group; \
+	docker compose -f docker-compose.yaml run -it --rm operations bash -c "./bin/kafka-consumer-groups.sh --bootstrap-server $(bootstrap-server) --describe --group $$group"
+
 delete-topic:
 	@read -p "Enter Topic Name: " topic; \
 	docker exec -it operations bash -c "./bin/kafka-topics.sh --bootstrap-server $(bootstrap-server) --topic $$topic --delete"
@@ -25,7 +29,13 @@ producer:
 consumer:
 	@read -p "Enter Topic Name: " topic; \
 	read -p "Enter Group Name: " group; \
-	docker exec -it producer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server $(bootstrap-server) --topic $$topic --group $$group --from-beginning"
+	docker exec -it consumer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server $(bootstrap-server) --topic $$topic --group $$group"
+
+consumer-fb:
+	@read -p "Enter Topic Name: " topic; \
+	read -p "Enter Group Name: " group; \
+	docker exec -it consumer bash -c "./bin/kafka-console-consumer.sh --bootstrap-server $(bootstrap-server) --topic $$topic --group $$group --from-beginning"
+
 
 operations:
 	docker exec -it operations bash
