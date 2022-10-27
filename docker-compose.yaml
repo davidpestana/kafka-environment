@@ -1,49 +1,41 @@
-version: '2'
+version: '3'
 services:
   zookeeper:
     container_name: zookeeper
     build: 
       context: .
-    command: /kafka/bin/zookeeper-server-start.sh /config/zookeeper
+    command: ["/kafka/bin/zookeeper-server-start.sh", "/config/zookeeper"]
     volumes:
       - ./config:/config
+      - ./data/zookeeper:/data/zookeeper
   broker1: 
       container_name: broker1
       depends_on:
         - zookeeper
       build: 
         context: .
-      command: /kafka/bin/kafka-server-start.sh /config/broker1
+      command: ["/kafka/bin/kafka-server-start.sh", "/config/broker1"]
       volumes:
         - ./config:/config
-        - ./data/broker1:/data
-      ports:
-        - 9092:9092
+        - ./data/broker1:/data/kafka-logs
   broker2:
       container_name: broker2
       depends_on:
         - zookeeper
       build: 
         context: .
-      command: /kafka/bin/kafka-server-start.sh /config/broker2
+      command: ["/kafka/bin/kafka-server-start.sh", "/config/broker2"]
       volumes:
         - ./config:/config
-        - ./data/broker2:/data
-      ports:
-        - 9093:9093
+        - ./data/broker2:/data/kafka-logs
 
-  consumer:
-      container_name: consumer
+  broker3:
+      container_name: broker3
+      depends_on:
+        - zookeeper
       build: 
         context: .
-      command: tail -f /dev/null
-  producer:
-      container_name: producer
-      build: 
-        context: .
-      command: tail -f /dev/null
-  operations:
-      container_name: operations
-      build: 
-        context: .
-      command: tail -f /dev/null
+      command: ["/kafka/bin/kafka-server-start.sh", "/config/broker3"]
+      volumes:
+        - ./config:/config
+        - ./data/broker3:/data/kafka-logs
