@@ -1,4 +1,4 @@
-bootstrap-server = broker1:9092
+bootstrap-server = broker3:9092,broker2:9092,broker1:9092
 
 
 start:
@@ -40,6 +40,9 @@ delete-topic:
 	@read -p "Enter Topic Name: " topic; \
 	docker compose -f tools.yaml run --rm tools bash -c \
 			"./bin/kafka-topics.sh --bootstrap-server $(bootstrap-server) --topic $$topic --delete"
+
+launch_autoproducer:
+	docker compose -f tools.yaml run --rm producer
 
 producer:
 	@read -p "Enter Topic Name: " topic; \

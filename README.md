@@ -13,3 +13,7 @@ Use Commands.
 ```
     make [command]
 ```
+
+
+
+Envia  mensaje a topic A,B ( con estas reglas cabeceras condiciones KEYS )

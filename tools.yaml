@@ -7,3 +7,11 @@ services:
     command: ['bash']
     volumes:
       - ./config:/config
+
+  producer:
+    container_name: producer
+    image: node
+    working_dir: /app
+    command: ["node", "index.js"]
+    volumes:
+      - ./src/producer/:/app
