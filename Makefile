@@ -5,8 +5,10 @@ start:
 	docker compose up -d
 	docker compose logs -f 
 
+du:
+	du --max-depth=2 -h data/
 
- cleanup:
+cleanup:
 	docker compose down --remove-orphans
 	docker rm -f $(docker ps -aq) 
 
@@ -26,6 +28,10 @@ describe-topic:
 list-topic:
 	docker compose -f tools.yaml run --rm tools bash -c \
 			"./bin/kafka-topics.sh --bootstrap-server $(bootstrap-server) --list"
+
+list-groups:
+	docker compose -f tools.yaml run --rm tools bash -c \
+			"./bin/kafka-consumer-groups.sh --bootstrap-server $(bootstrap-server) --list"
 
 describe-groups:
 	docker compose -f tools.yaml run --rm tools bash -c \
@@ -54,6 +60,12 @@ consumer:
 	read -p "Enter Group Name: " group; \
 	docker compose -f tools.yaml run --rm tools bash -c \
 			"./bin/kafka-console-consumer.sh --bootstrap-server $(bootstrap-server) --topic $$topic --group $$group"
+
+consumer-p:
+	@read -p "Enter Topic Name: " topic; \
+	read -p "Enter Partition Id: " partition; \
+	docker compose -f tools.yaml run --rm tools bash -c \
+			"./bin/kafka-console-consumer.sh --bootstrap-server $(bootstrap-server) --topic $$topic --partition $$partition"
 
 consumer-fb:
 	@read -p "Enter Topic Name: " topic; \
